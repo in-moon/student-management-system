@@ -11,16 +11,17 @@ import java.time.LocalDate;
 @TableName("student")
 public class Student {
     @TableId(type = IdType.AUTO)
-    private Long id; // 数据库自增主键
+    private Long id;
 
-    private String studentNo; // 学号
-    private String name;      // 姓名
-    private String gender;    // 性别
-    private Integer age;      // 年龄
-    private String clazz;     // 班级
-    private String major;     // 专业
-    private LocalDate enrollDate; // 入学日期
-    private String phone;     // 联系方式
+    private String studentNo;
+    private String name;
+    private String gender;
+    private Integer age;
+    private String clazz;        // 班级名称（显示）
+    private Long classId;        // 班级外键
+    private String major;
+    private LocalDate enrollDate;
+    private String phone;
+    private String email;
+    private String address;
 }
-
-

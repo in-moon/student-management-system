@@ -1,0 +1,35 @@
+# ============================================
+# 达梦 DM8 国产数据库配置 Profile
+# 启动方式: mvn spring-boot:run -Dspring-boot.run.profiles=dm8
+# 或: java -jar app.jar --spring.profiles.active=dm8
+# ============================================
+spring:
+  datasource:
+    driver-class-name: dm.jdbc.driver.DmDriver
+    url: jdbc:dm://127.0.0.1:5236/student_system?charSet=utf8&compatibleMode=oracle
+    username: SYSDBA
+    password: SYSDBA
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+  sql:
+    init:
+      mode: never  # DM8 请手动执行 schema-dm8.sql
+
+# MyBatis-Plus DM8（Oracle 兼容模式）
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      # DM8 使用 IDENTITY 自增，与 MySQL AUTO_INCREMENT 等价
+
+# AI 配置（与默认一致）
+ai:
+  openai:
+    api-key: ${OPENAI_API_KEY:sk-your-api-key-here}
+    base-url: https://api.openai.com
+    model: gpt-3.5-turbo
+    temperature: 0.7
+    max-tokens: 2048

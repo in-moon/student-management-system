@@ -11,6 +11,14 @@
           <el-icon><Collection /></el-icon>
           <span>班级管理</span>
         </el-menu-item>
+        <el-menu-item index="/courses">
+          <el-icon><Reading /></el-icon>
+          <span>课程管理</span>
+        </el-menu-item>
+        <el-menu-item index="/ai-chat">
+          <el-icon><ChatDotRound /></el-icon>
+          <span>AI 智能助手</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
@@ -26,17 +34,14 @@
       </el-main>
     </el-container>
   </el-container>
-  
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { User, Collection } from '@element-plus/icons-vue'
+import { User, Collection, Reading, ChatDotRound } from '@element-plus/icons-vue'
 const router = useRouter()
 function logout(){
   localStorage.removeItem('token')
   router.push('/login')
 }
 </script>
-
-

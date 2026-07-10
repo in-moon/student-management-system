@@ -31,35 +31,57 @@
 | AI | OpenAI 兼容 API（SSE 流式） |
 | 文档 | SpringDoc OpenAPI（Swagger） |
 
-## 快速启动
+## 在其他机器上启动
 
-### 环境要求
-- JDK 17+、Maven 3.8+
-- Node.js 18+、npm/pnpm
-- MySQL 8.0+、Redis 7.x
+### 第一步：安装环境
 
-### 后端
+| 软件 | 版本 | 说明 |
+|------|------|------|
+| JDK | 17+ | `java -version` |
+| Maven | 3.8+ | `mvn -version` |
+| Node.js | 18+ | `node -version` |
+| MySQL | 8.0+ | 需创建空数据库 `student_system` |
+| Redis | 7.x | 可选，没有也能跑 |
+
+### 第二步：创建数据库
+
+```sql
+-- 用 MySQL 客户端执行
+CREATE DATABASE IF NOT EXISTS student_system DEFAULT CHARACTER SET utf8mb4;
+```
+
+### 第三步：修改配置
+
+编辑 `backend/src/main/resources/application.yml`，改两处：
+
+```yaml
+spring:
+  datasource:
+    username: 你的MySQL用户名
+    password: 你的MySQL密码
+```
+
+### 第四步：启动
 
 ```bash
+# 终端1：后端（自动建表，首次启动稍慢）
 cd backend
-# 修改 application.yml 中的数据库密码
 mvn spring-boot:run
-# 访问 http://localhost:8088/swagger-ui.html
-```
+# 看到 "Started StudentSystemApplication" 即成功
 
-### 前端
-
-```bash
+# 终端2：前端
 cd frontend
-npm install
+npm install        # 仅首次
 npm run dev
-# 访问 http://localhost:5173
 ```
 
-### 默认账号
+### 第五步：打开浏览器
 
-- 用户名：`admin`
-- 密码：`admin`（首次登录自动升级为 BCrypt 加密）
+- **前端页面**：http://localhost:5173
+- **Swagger 文档**：http://localhost:8088/swagger-ui.html
+- **默认账号**：`admin` / `admin`
+
+> 首次登录密码明文存储，登录后自动升级为 BCrypt 加密。
 
 ## API 速览
 

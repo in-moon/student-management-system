@@ -31,39 +31,29 @@
 | AI | OpenAI 兼容 API（SSE 流式） |
 | 文档 | SpringDoc OpenAPI（Swagger） |
 
-## 一键启动（推荐）
+## 环境要求
 
-```bash
-# Windows 上双击运行，自动检查环境、创建数据库、启动前后端
-start.bat
-```
-
-脚本会自动：检查 JDK/Maven/Node/MySQL → 创建数据库 → 改配置 → 启动后端 → 启动前端 → 打开浏览器。
-
----
-
-## 手动启动
-
-### 第一步：安装环境
-
-| 软件 | 版本 | 说明 |
-|------|------|------|
+| 软件 | 版本 | 检查命令 |
+|------|------|---------|
 | JDK | 17+ | `java -version` |
 | Maven | 3.8+ | `mvn -version` |
 | Node.js | 18+ | `node -version` |
-| MySQL | 8.0+ | 需创建空数据库 `student_system` |
+| MySQL | 8.0+ | 需运行中 |
 | Redis | 7.x | 可选，没有也能跑 |
 
-### 第二步：创建数据库
+## 启动步骤
+
+### 1. 创建数据库
+
+打开 MySQL 客户端执行：
 
 ```sql
--- 用 MySQL 客户端执行
 CREATE DATABASE IF NOT EXISTS student_system DEFAULT CHARACTER SET utf8mb4;
 ```
 
-### 第三步：修改配置
+### 2. 修改配置
 
-编辑 `backend/src/main/resources/application.yml`，改两处：
+编辑 `backend/src/main/resources/application.yml`，改数据库用户名密码：
 
 ```yaml
 spring:
@@ -72,27 +62,29 @@ spring:
     password: 你的MySQL密码
 ```
 
-### 第四步：启动
+### 3. 启动后端
 
 ```bash
-# 终端1：后端（自动建表，首次启动稍慢）
 cd backend
 mvn spring-boot:run
-# 看到 "Started StudentSystemApplication" 即成功
+# 看到 "Started StudentSystemApplication" 即启动成功
+```
 
-# 终端2：前端
+### 4. 启动前端
+
+打开另一个终端：
+
+```bash
 cd frontend
-npm install        # 仅首次
+npm install        # 仅首次运行
 npm run dev
 ```
 
-### 第五步：打开浏览器
+### 5. 打开浏览器
 
-- **前端页面**：http://localhost:5173
-- **Swagger 文档**：http://localhost:8088/swagger-ui.html
-- **默认账号**：`admin` / `admin`
-
-> 首次登录密码明文存储，登录后自动升级为 BCrypt 加密。
+- 前端页面：**http://localhost:5173**
+- Swagger 文档：http://localhost:8088/swagger-ui.html
+- 默认账号：`admin` / `admin`（首次登录密码自动 BCrypt 加密）
 
 ## API 速览
 

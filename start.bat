@@ -72,23 +72,6 @@ echo ========================================
 echo   启动服务...
 echo ========================================
 
-REM === 启动后端 ===
-echo.
-echo 启动后端 (SpringBoot)...
-start "学生管理系统-后端" cmd /c "cd /d %~dp0backend && %MVN_CMD% spring-boot:run"
-echo   后端启动中，等待约 15 秒...
-
-REM === 等待后端就绪 ===
-echo   等待后端就绪...
-:wait_backend
-timeout /t 3 /nobreak >nul
-curl -s http://localhost:8088/actuator >nul 2>&1
-if errorlevel 1 (
-    curl -s http://localhost:8088/swagger-ui.html >nul 2>&1
-    if errorlevel 1 goto wait_backend
-)
-echo   后端就绪: http://localhost:8088
-
 REM === 安装前端依赖 (首次) ===
 echo.
 echo 检查前端依赖...
@@ -99,26 +82,36 @@ if not exist "frontend\node_modules" (
     cd /d "%~dp0"
 )
 
+REM === 启动后端 ===
+echo.
+echo 启动后端 (SpringBoot, 端口 8088)...
+start "学生管理系统-后端" cmd /c "cd /d %~dp0backend && %MVN_CMD% spring-boot:run"
+
 REM === 启动前端 ===
-echo 启动前端 (Vue3)...
+echo 启动前端 (Vue3, 端口 5173)...
 start "学生管理系统-前端" cmd /c "cd /d %~dp0frontend && npm run dev"
 
-REM === 等待前端就绪 ===
-echo   等待前端就绪...
-:wait_frontend
-timeout /t 2 /nobreak >nul
-curl -s http://localhost:5173 >nul 2>&1
-if errorlevel 1 goto wait_frontend
+REM === 等待服务启动 ===
+echo.
+echo 等待服务启动 (后端约 15 秒, 前端约 5 秒)...
+echo.
+set /a COUNT=20
+:wait_loop
+timeout /t 1 /nobreak >nul
+set /a COUNT-=1
+if %COUNT% gtr 0 (
+    <nul set /p =.
+    goto wait_loop
+)
 
 REM === 打开浏览器 ===
 echo.
 echo ========================================
-echo   启动完成！
+echo   启动完成！自动打开浏览器...
 echo   前端: http://localhost:5173
 echo   Swagger: http://localhost:8088/swagger-ui.html
 echo   账号: admin / admin
 echo ========================================
-echo.
 start http://localhost:5173
 
 pause

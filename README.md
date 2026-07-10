@@ -39,7 +39,7 @@
 | Maven | 3.8+ | `mvn -version` |
 | Node.js | 18+ | `node -version` |
 | MySQL | 8.0+ | 需运行中 |
-| Redis | 7.x | 可选，没有也能跑 |
+| Redis | 7.x | 可选，默认关闭 |
 
 ## 启动步骤
 
@@ -53,14 +53,17 @@ CREATE DATABASE IF NOT EXISTS student_system DEFAULT CHARACTER SET utf8mb4;
 
 ### 2. 修改配置
 
-编辑 `backend/src/main/resources/application.yml`，改数据库用户名密码：
+编辑 `backend/src/main/resources/application.yml`：
 
 ```yaml
 spring:
   datasource:
-    username: 你的MySQL用户名
-    password: 你的MySQL密码
+    url: jdbc:mysql://localhost:3306/student_system?...   # 默认即可，端口不对改 3306
+    username: 你的MySQL用户名                              # 改这里
+    password: 你的MySQL密码                                # 改这里
 ```
+
+> 如需启用 Redis 缓存：安装 Redis 后，取消 `application.yml` 中 `spring.data.redis` 段的注释。
 
 ### 3. 启动后端
 

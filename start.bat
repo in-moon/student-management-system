@@ -93,9 +93,9 @@ start "学生管理系统-前端" cmd /c "cd /d %~dp0frontend && npm run dev"
 
 REM === 等待服务启动 ===
 echo.
-echo 等待服务启动 (后端约 15 秒, 前端约 5 秒)...
+echo 等待服务启动 (约 8 秒)...
 echo.
-set /a COUNT=20
+set /a COUNT=8
 :wait_loop
 timeout /t 1 /nobreak >nul
 set /a COUNT-=1

@@ -137,4 +137,4 @@ student-management-system/
 
 ## 许可证
 
-本项目基于 [student-system-ai-project](https://github.com/smartnolike/student-system-ai-project) 二次开发，仅供学习用途。
+仅供学习用途。

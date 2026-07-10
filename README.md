@@ -31,7 +31,18 @@
 | AI | OpenAI 兼容 API（SSE 流式） |
 | 文档 | SpringDoc OpenAPI（Swagger） |
 
-## 在其他机器上启动
+## 一键启动（推荐）
+
+```bash
+# Windows 上双击运行，自动检查环境、创建数据库、启动前后端
+start.bat
+```
+
+脚本会自动：检查 JDK/Maven/Node/MySQL → 创建数据库 → 改配置 → 启动后端 → 启动前端 → 打开浏览器。
+
+---
+
+## 手动启动
 
 ### 第一步：安装环境
 

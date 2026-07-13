@@ -1,6 +1,6 @@
 # 智能学生管理系统
 
-> **课程**：最优化理论及应用 — 数据库课程设计  
+> **课程**：数据库课程设计  
 > **技术栈**：Vue3 + SpringBoot3 + MyBatis-Plus + MySQL + Redis + AI  
 > **数据库**：MySQL 8.0（可扩展达梦 DM8）
 
